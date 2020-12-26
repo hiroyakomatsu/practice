@@ -1,0 +1,148 @@
+@charset "utf-8";
+
+*,*::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ddd;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+
+}
+
+main {
+    max-width: 900px;
+    width: 100%;
+    height: 200vh;/*画面の高さ100%*/
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.menuButton {
+    display: block;
+    height: 200px;
+    width: 200px;
+    /* background-color: #fff; */
+    position: fixed;/*右上に固定 fixedを指定すると固定されるからposition-relativeの代わりにもなる*/
+    top: 0;
+    right: 0;
+    transition: .5s;
+    z-index: 3;
+}
+
+.menuButton div {
+    height: 2px;
+    width: 60%;
+    background-color: #333;
+    position: absolute;
+    top: 50%;/*箱の上から50%*/
+    left: 50%;/*箱の左から50%*/
+    transform: translate(-50%, -50%);/*widthの半分(30%分)、左に足す/X軸(縦)方向は左右真ん中なので、50％*/
+    transition: .5s;/*.menuButton.active div:nth-of-type(2)で設定したのはボタンを押した後の設定なので
+    変更は前の.menuButton divの方で変更前のクラスにtansitionをつけてアニメーションを指定してあげる*/
+
+}
+
+.menuButton div:nth-of-type(1) {
+    transform: translate(-50%,-50px);
+}
+
+.menuButton div:nth-of-type(3) {
+    transform: translate(-50%, 50px);/*X軸方向は左右真ん中なので、50％*/
+}
+
+.menuButton.active {
+    transform: rotate(90deg);/*90の倍数であればきれいに表示できる*/
+    
+}
+
+.menuButton.active div:nth-of-type(1) {
+    transform: rotate(45deg) translate(-50%,0px);
+    transform-origin: 0% 50%;
+    background-color: #fff;
+}
+
+.menuButton.active div:nth-of-type(2) {
+    opacity: 0;
+    background-color: #fff;
+    /* transform: translate(-50% -50%); */
+    /* width: 80%;
+    height: 80%;
+    border: 1px  solid #fff;
+    background-color: transparent;背景色を透明に */
+    /* border-radius: 50%; */
+}
+
+.menuButton.active div:nth-of-type(3) {
+    transform: rotate(-45deg) translate(-50%,0px);
+    transform-origin: 0% 50%;
+    background-color: #fff;
+}
+
+nav {
+    opacity: 0;
+    padding-top: 200px;
+    width: 200px;
+    visibility: hidden;/*display: none;でも効き目はあるが、
+    transitionを効かせてふわっと表示をさせたいのでvisibiltyを使用*/
+    transition: .8s;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #333;
+    z-index: 2;
+    font-size: 20px;
+    overflow: auto;/*nav内の下の方まで選択出来ないため、スクロールをつける*/
+    max-height: 100vh;/*高さを画面いっぱいまで引き延ばす100vhがマックス*/
+    height: 100vh;
+    box-shadow: 0 0 10px 1px #333;
+}
+
+/* nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+} */
+
+nav ul li {
+    text-align: center;
+   
+    
+}
+
+nav ul li:not(:first-of-type){
+    margin-top: 20px;
+}
+
+nav.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mask {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0;
+    visibility: hidden;/*非表示にする  display:none;を指定するとアニメーションができなくなるから
+    visibility: hiddenを指定してあげる;*/
+    transition: .5s;
+}
+
+.mask.active {/*.mask　.activeの様にセレクタとドットの間を開けないようにする空けると反映されない*/
+    opacity: 0.7;
+    visibility: visible;/*表示する*/
+}
+
